@@ -1,2 +1,9 @@
-<h1>Happy Birthday <%= @name %>
-</h1>
+<body style="background-color: #CCFFE6;">
+
+  <% if @day == "1" && @month == @today_month %>
+    <h1>Happy Birthday <%= @name %> </h1>
+  <% else %>
+    <h1>It's not your bithday :( </h1>
+  <% end %>
+
+</body>

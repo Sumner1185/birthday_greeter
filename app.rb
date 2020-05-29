@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'date'
 
 class Birthday < Sinatra::Base
   set :session_secret, "something"
@@ -10,17 +11,16 @@ class Birthday < Sinatra::Base
 
   post '/info' do
     session[:name] = params[:name]
-    p "This is in info "  
-    p session
-    #$name = session[:name]
-
+    session[:day] = params[:day]
+    session[:month] = params[:month]
     redirect '/hbd'
   end
 
   get '/hbd' do
-    p "This is in hbd " 
-    p session
+    @today_month = Date.today.strftime("%B").downcase
     @name = session[:name]
+    @day = session[:day]
+    @month = session[:month]
     erb(:hbd)
   end
 end
