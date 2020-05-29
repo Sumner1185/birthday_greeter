@@ -1,24 +1,28 @@
 require 'sinatra/base'
 
 class Birthday < Sinatra::Base
-enable :sessions
+  set :session_secret, "something"
+  enable :sessions
 
+  get '/' do
+    erb(:index)
+  end
 
-get '/' do
-  erb(:index)
-end
+  post '/info' do
+    session[:name] = params[:name]
+    p "This is in info "  
+    p session
+    #$name = session[:name]
 
-post '/info' do
-  session[:name] = params[:name]
-  $name = session[:name]
-  p $name
-  redirect '/hbd'
-end
+    redirect '/hbd'
+  end
 
-get '/hbd' do
-  p $name
-  erb(:hbd)
-end
+  get '/hbd' do
+    p "This is in hbd " 
+    p session
+    @name = session[:name]
+    erb(:hbd)
+  end
 end
 
 
